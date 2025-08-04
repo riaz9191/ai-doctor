@@ -1,50 +1,65 @@
-
 'use client'
 
-import { useState } from 'react'
-import PatientModel from '../components/PatientModel'
+import { useState, Suspense } from 'react'
+import dynamic from 'next/dynamic'
 import ChatPanel from '../components/ChatPanel'
 import PrescriptionPad from '../components/PrescriptionPad'
 
-export default function Home() {
-  const [gender, setGender] = useState('')
-  const [report, setReport] = useState('')
-  const [showPrescription, setShowPrescription] = useState(false)
+const PatientModel = dynamic(() => import('../components/PatientModel'), { 
+  ssr: false,
+  loading: () => <p>Loading 3D Model...</p>
+})
 
-  const handleGenderSelect = (selectedGender: string) => {
-    setGender(selectedGender)
+export default function Home() {
+  const [step, setStep] = useState('gender') // 'gender', 'chat', 'prescription'
+  const [report, setReport] = useState('')
+
+  const handleGenderSelect = () => {
+    setStep('chat')
   }
 
   const handleEndConsultation = (finalReport: string) => {
     setReport(finalReport)
-    setShowPrescription(true)
+    setStep('prescription')
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {!gender && (
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-8">Select Patient</h1>
-          <div className="flex justify-center space-x-8">
-            <button onClick={() => handleGenderSelect('male')} className="px-8 py-4 bg-blue-500 text-white rounded-lg">Male</button>
-            <button onClick={() => handleGenderSelect('female')} className="px-8 py-4 bg-pink-500 text-white rounded-lg">Female</button>
+    <main className="min-h-screen bg-gray-50 text-gray-800">
+      {step === 'gender' && (
+        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-100 to-white">
+          <h1 className="text-5xl font-bold mb-4 text-gray-700">Welcome to AI Doctor</h1>
+          <p className="text-xl mb-12 text-gray-600">Your Personal AI Health Assistant</p>
+          <div className="w-full max-w-4xl h-96 rounded-lg shadow-2xl overflow-hidden">
+            <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-gray-200"><p>Loading 3D Models...</p></div>}>
+              <PatientModel />
+            </Suspense>
+          </div>
+          <div className="mt-12 flex space-x-8">
+            <button onClick={handleGenderSelect} className="px-10 py-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105">Start Consultation</button>
           </div>
         </div>
       )}
 
-      {gender && !showPrescription && (
-        <div className="flex w-full h-full">
-          <div className="w-1/2">
-            <PatientModel />
+      {step === 'chat' && (
+        <div className="flex w-full h-screen">
+          <div className="w-1/3 bg-gray-100 p-4">
+            <h2 className="text-2xl font-bold mb-4">3D Patient View</h2>
+            <div className="w-full h-full rounded-lg overflow-hidden shadow-lg">
+              <Suspense fallback={<div className="w-full h-full flex items-center justify-center bg-gray-200"><p>Loading 3D Model...</p></div>}>
+                <PatientModel />
+              </Suspense>
+            </div>
           </div>
-          <div className="w-1/2">
-            <ChatPanel />
+          <div className="w-2/3">
+            <ChatPanel onEndConsultation={handleEndConsultation} />
           </div>
         </div>
       )}
 
-      {showPrescription && (
-        <PrescriptionPad report={report} />
+      {step === 'prescription' && (
+        <div className="flex items-center justify-center min-h-screen bg-gray-100 p-8">
+          <PrescriptionPad report={report} />
+        </div>
       )}
     </main>
   )
