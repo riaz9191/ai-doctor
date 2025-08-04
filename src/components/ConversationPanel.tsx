@@ -3,9 +3,11 @@
 
 import { useChat } from '@/hooks/use-chat'
 import ReactMarkdown from 'react-markdown'
+import { useRouter } from 'next/navigation'
 
-export default function ChatPanel() {
-  const { message, setMessage, chatHistory, userReport, modelResponse, chatContainerRef, handleSendMessage } = useChat()
+export default function ConversationPanel() {
+  const { message, setMessage, chatHistory, userReport, modelResponse, chatContainerRef, handleSendMessage } = useChat();
+  const router = useRouter();
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -34,7 +36,17 @@ export default function ChatPanel() {
         </div>
       </div>
       
+    <div className="p-4 bg-gray-50 border-t">
+        <button
+          onClick={() => {
+            router.push(`/prescription?report=${encodeURIComponent(userReport)}`);
+          }}
+          className="mt-4 px-6 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition"
+        >
+          End Consultation & Generate Prescription
+        </button>
+      </div>
     </div>
-  )
+  );
 }
 
