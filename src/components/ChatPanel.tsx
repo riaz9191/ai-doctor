@@ -4,8 +4,8 @@
 import { useChat } from '@/hooks/use-chat'
 import ReactMarkdown from 'react-markdown'
 
-export default function ChatPanel({ onEndConsultation }: { onEndConsultation: (report: string) => void }) {
-  const { message, setMessage, chatHistory, report, chatContainerRef, handleSendMessage } = useChat()
+export default function ChatPanel() {
+  const { message, setMessage, chatHistory, userReport, modelResponse, chatContainerRef, handleSendMessage } = useChat()
 
   return (
     <div className="flex flex-col h-screen bg-white">
@@ -33,11 +33,7 @@ export default function ChatPanel({ onEndConsultation }: { onEndConsultation: (r
           <button onClick={handleSendMessage} className="ml-4 px-6 py-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition">Send</button>
         </div>
       </div>
-      <div className="p-4 bg-gray-50 border-t">
-        <h2 className="text-xl font-bold text-gray-700">Live Preliminary Report</h2>
-        <textarea value={report} readOnly className="w-full h-32 p-3 border rounded-lg mt-2 bg-gray-100 focus:outline-none" />
-        <button onClick={() => onEndConsultation(report)} className="mt-4 px-6 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition">End Consultation & Generate Prescription</button>
-      </div>
+      
     </div>
   )
 }

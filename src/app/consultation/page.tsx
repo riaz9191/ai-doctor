@@ -1,8 +1,9 @@
 "use client";
-import ChatPanel from "@/components/ChatPanel";
-import PrescriptionPad from "@/components/PrescriptionPad";
+import ReportPanel from "@/components/ReportPanel";
+import { useChat } from "@/hooks/use-chat";
+
 import { ThemeProvider } from "@/components/theme-provider";
-import { useState } from "react";
+
 
 export default function ConsultationPage() {
   const [report, setReport] = useState('');

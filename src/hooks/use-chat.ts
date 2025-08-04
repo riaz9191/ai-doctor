@@ -20,6 +20,7 @@ export function useChat() {
 
     const newHistory = [...chatHistory, { role: 'user', parts: [{ text: message }] }]
     setChatHistory(newHistory)
+    setUserReport(prev => prev + '\n' + message)
     setMessage('')
 
     const response = await fetch('/api/chat', {
@@ -32,11 +33,11 @@ export function useChat() {
     const { text } = await response.json()
 
     setChatHistory(prev => [...prev, { role: 'model', parts: [{ text }] }])
-    setReport(prev => prev + '\n' + text)
+    setModelResponse(prev => prev + '\n' + text)
 
     const utterance = new SpeechSynthesisUtterance(text)
     speechSynthesis.speak(utterance)
   }
 
-  return { message, setMessage, chatHistory, report, chatContainerRef, handleSendMessage }
+  return { message, setMessage, chatHistory, userReport, modelResponse, chatContainerRef, handleSendMessage }
 }
