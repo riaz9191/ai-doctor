@@ -5,7 +5,8 @@ import { useState, useEffect, useRef } from 'react'
 export function useChat() {
   const [message, setMessage] = useState('')
   const [chatHistory, setChatHistory] = useState<{ role: string, parts: { text: string }[] }>([])
-  const [report, setReport] = useState('')
+  const [modelResponse, setModelResponse] = useState('')
+  const [userReport, setUserReport] = useState('')
   const chatContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

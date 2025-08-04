@@ -2,6 +2,7 @@
 'use client'
 
 import { useChat } from '@/hooks/use-chat'
+import ReactMarkdown from 'react-markdown'
 
 export default function ChatPanel({ onEndConsultation }: { onEndConsultation: (report: string) => void }) {
   const { message, setMessage, chatHistory, report, chatContainerRef, handleSendMessage } = useChat()
@@ -13,7 +14,7 @@ export default function ChatPanel({ onEndConsultation }: { onEndConsultation: (r
           {chatHistory.map((chat, i) => (
             <div key={i} className={`flex items-start ${chat.role === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`px-4 py-2 rounded-lg max-w-lg ${chat.role === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
-                {chat.parts[0].text}
+                <ReactMarkdown>{chat.parts[0].text}</ReactMarkdown>
               </div>
             </div>
           ))}

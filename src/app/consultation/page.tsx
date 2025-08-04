@@ -1,3 +1,4 @@
+"use client";
 import ChatPanel from "@/components/ChatPanel";
 import PrescriptionPad from "@/components/PrescriptionPad";
 import { ThemeProvider } from "@/components/theme-provider";
