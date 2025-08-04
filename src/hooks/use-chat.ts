@@ -33,8 +33,8 @@ export function useChat() {
     setChatHistory(prev => [...prev, { role: 'model', parts: [{ text }] }])
     setReport(prev => prev + '\n' + text)
 
-    const audio = new Audio(`https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=en&client=tw-ob`)
-    audio.play()
+    const utterance = new SpeechSynthesisUtterance(text)
+    speechSynthesis.speak(utterance)
   }
 
   return { message, setMessage, chatHistory, report, chatContainerRef, handleSendMessage }
