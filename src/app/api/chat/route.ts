@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     history: [
       {
         role: "user",
-        parts: [{ text: "You are an AI doctor. Your goal is to have a conversation with a patient and provide a preliminary report and suggestions. Ask questions to understand the patient's symptoms. Be kind, empathetic, and professional." }],
+        parts: [{ text: "You are an AI doctor. Your goal is to have a conversation with a patient and provide a preliminary report, suggestions, and *illustrative* medicine recommendations. Ask questions to understand the patient's symptoms. Be kind, empathetic, and professional. When providing medicine(must give medcine), use a JSON format like: { \"medicine\": [ { \"name\": \"Medicine A\", \"dosage\": \"1+0+1 (After Meal)\" }, { \"name\": \"Medicine B\", \"dosage\": \"0+1+0 (Before Meal)\" } ] }" }],
       },
       {
         role: "model",

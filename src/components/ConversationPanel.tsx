@@ -6,12 +6,13 @@ import ReactMarkdown from 'react-markdown'
 import { useRouter } from 'next/navigation'
 
 export default function ConversationPanel() {
-  const { message, setMessage, chatHistory, userReport, modelResponse, chatContainerRef, handleSendMessage } = useChat();
+  const { message, setMessage, chatHistory, userReport, medicines, chatContainerRef, handleSendMessage } = useChat();
   const router = useRouter();
 
   return (
-    <div className="flex flex-col h-screen bg-white">
-      <div className="flex-grow p-6 overflow-y-auto" ref={chatContainerRef}>
+    <div className="flex flex-col h-full bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+      <div className="p-4 bg-blue-600 text-white text-center text-xl font-bold rounded-t-lg">AI Doctor Consultation</div>
+      <div className="flex-grow p-6 overflow-y-auto bg-gray-50 dark:bg-gray-700" ref={chatContainerRef}>
         <div className="flex flex-col space-y-4">
           {chatHistory.map((chat, i) => (
             <div key={i} className={`flex items-start ${chat.role === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -39,7 +40,7 @@ export default function ConversationPanel() {
     <div className="p-4 bg-gray-50 border-t">
         <button
           onClick={() => {
-            router.push(`/prescription?report=${encodeURIComponent(userReport)}`);
+            router.push(`/prescription?report=${encodeURIComponent(userReport)}&medicines=${encodeURIComponent(JSON.stringify(medicines))}`);
           }}
           className="mt-4 px-6 py-3 bg-green-600 text-white rounded-full shadow-md hover:bg-green-700 transition"
         >

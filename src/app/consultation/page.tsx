@@ -16,12 +16,14 @@ export default function ConsultationPage() {
       enableSystem
       disableTransitionOnChange
     >
-      <main className="flex h-screen">
-        <div className="w-1/2 h-full">
-          <ConversationPanel />
-        </div>
-        <div className="w-1/2 h-full flex justify-center items-center bg-gray-100 dark:bg-gray-900">
-          <ReportPanel report={userReport} />
+      <main className="flex h-screen bg-gradient-to-br from-blue-100 to-purple-100 dark:from-gray-800 dark:to-gray-900 p-4">
+        <div className="flex w-full h-full space-x-4">
+          <div className="w-1/2 h-full">
+            <ConversationPanel />
+          </div>
+          <div className="w-1/2 h-full flex justify-center items-center">
+            <ReportPanel report={userReport} />
+          </div>
         </div>
       </main>
     </ThemeProvider>

@@ -1,6 +1,6 @@
 'use client'
 
-export default function PrescriptionPad({ report }: { report: string }) {
+export default function PrescriptionPad({ report, medicines }: { report: string, medicines: { name: string, dosage: string }[] }) {
   return (
     <div className="w-full max-w-2xl p-8 bg-white shadow-2xl rounded-lg font-sans">
       <div className="flex justify-between items-start border-b-4 border-blue-600 pb-4">
@@ -26,18 +26,16 @@ export default function PrescriptionPad({ report }: { report: string }) {
       <div className="mt-8">
         <h2 className="text-xl font-bold text-gray-700 mb-2">Medication</h2>
         <div className="space-y-4">
-          <div className="flex items-center">
-            <p className="w-1/2 font-semibold text-gray-800">1. Placeholder Medicine A</p>
-            <p className="w-1/2 text-gray-600">1 + 0 + 1 (After Meal)</p>
-          </div>
-          <div className="flex items-center">
-            <p className="w-1/2 font-semibold text-gray-800">2. Placeholder Medicine B</p>
-            <p className="w-1/2 text-gray-600">0 + 1 + 0 (Before Meal)</p>
-          </div>
-          <div className="flex items-center">
-            <p className="w-1/2 font-semibold text-gray-800">3. Placeholder Medicine C</p>
-            <p className="w-1/2 text-gray-600">1 + 1 + 1 (After Meal)</p>
-          </div>
+          {medicines.length > 0 ? (
+            medicines.map((med, index) => (
+              <div key={index} className="flex items-center">
+                <p className="w-1/2 font-semibold text-gray-800">{index + 1}. {med.name}</p>
+                <p className="w-1/2 text-gray-600">{med.dosage}</p>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-600">No specific medication recommended at this time.</p>
+          )}
         </div>
       </div>
       <div className="mt-12 border-t-2 border-dashed pt-6 text-center text-sm text-gray-600">
