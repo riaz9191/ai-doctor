@@ -13,7 +13,7 @@ export default function LandingPage() {
           Start Consultation
         </Link>
       </div>
-      <div className="w-1/2 ">
+      <div className="w-1/2 h-screen flex items-center justify-center">
         <DoctorRobot />
       </div>
     </div>

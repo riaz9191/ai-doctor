@@ -28,7 +28,7 @@ export default function DoctorRobot() {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
         <pointLight position={[-10, -10, -10]} />
         <RobotModel />
-        <OrbitControls enableZoom={false} enablePan={false} target={[0, 0.5, 0]} />
+        <OrbitControls enableZoom={false} enablePan={false} target={[0, 0, 0]} />
       </Suspense>
     </Canvas>
   );
